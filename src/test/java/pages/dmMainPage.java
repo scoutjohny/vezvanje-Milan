@@ -1,7 +1,6 @@
 package pages;
 
 import org.openqa.selenium.*;
-import org.openqa.selenium.devtools.v121.dom.model.ShadowRootType;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -46,7 +45,7 @@ public class dmMainPage extends BasePage{
 
     public void acceptCookies() {
         //Ovde prvo definišemo element u kome se nalazi shadow dom! :
-        final WebElement shadowHost = driver.findElement(By.cssSelector("#usercentrics-root"));
+        WebElement shadowHost = driver.findElement(By.cssSelector("#usercentrics-root"));
 
         //Kreiramo JavascriptExecutor objekat da bi koristili JavaScript da nam uđe u shadow root:
         JavascriptExecutor js = (JavascriptExecutor)driver;
@@ -54,7 +53,7 @@ public class dmMainPage extends BasePage{
         //Koristimo JavaScript i pretražujemo shadow root kako bi dohvatili listu svih elemenata u njemu
         SearchContext shadowRoot = (SearchContext)(js.executeScript("return arguments[0].shadowRoot", shadowHost));
         //Konačno, klikćemo na element
-        shadowRoot.findElement(By.cssSelector("button[data-testid='uc-accept-all-button']")).click();
+        WebElement shadowContent = shadowRoot.findElement(By.cssSelector("button[data-testid='uc-accept-all-button']"));
     }
 
     public void closeModal() throws Exception {
